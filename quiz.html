@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+    <title>QUIZ GAME</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button"></a>
+        <h1>QUIZ GAME</h1>
+    </header>
+
+    <div class="quiz-container">
+        <h1>Medical Quiz Game</h1>
+        <div class="quiz-box">
+            <p class="question-text">Loading question...</p>
+            <div class="options-container"></div>
+            <button class="next-btn" onclick="nextQuestion()">Next</button>
+            <p class="progress">Question <span id="current-question">1</span> of <span id="total-questions">20</span></p>
+            <p>Time Left: <span id="timer">30</span> seconds</p>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+</body>
+<script>
+    const questions = [{
+        question: "What is the normal blood pH level?",
+        options: ["7.0", "7.4", "7.8", "6.8"],
+        answer: "7.4"
+    }, {
+        question: "What does 'PRN' mean in medical terms?",
+        options: ["Once a day", "As needed", "Every 6 hours", "With meals"],
+        answer: "As needed"
+    }, {
+        question: "What is the formula for BMI?",
+        options: ["(Weight in kg) ÷ (Height in m²)", "Height ÷ Weight", "Weight × Height", "Height ÷ Age"],
+        answer: "(Weight in kg) ÷ (Height in m²)"
+    }, {
+        question: "Which organ detoxifies chemicals in the body?",
+        options: ["Heart", "Liver", "Kidney", "Lungs"],
+        answer: "Liver"
+    }, {
+        question: "What does 'BID' mean in prescriptions?",
+        options: ["Three times a day", "Twice a day", "Once a day", "Every 4 hours"],
+        answer: "Twice a day"
+    }, {
+        question: "What is the normal respiratory rate for an adult?",
+        options: ["12-20 breaths per minute", "25-30 breaths per minute", "8-10 breaths per minute", "30-40 breaths per minute"],
+        answer: "12-20 breaths per minute"
+    }, {
+        question: "What does 'STAT' mean in medical terminology?",
+        options: ["Every 4 hours", "Immediately", "Twice a day", "Give when needed"],
+        answer: "Immediately"
+    }];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 30;
+
+    const questionText = document.querySelector(".question-text");
+    const optionsContainer = document.querySelector(".options-container");
+    const nextBtn = document.querySelector(".next-btn");
+    const currentQuestionSpan = document.getElementById("current-question");
+    const totalQuestionsSpan = document.getElementById("total-questions");
+    const quizBox = document.querySelector(".quiz-box");
+    const timerSpan = document.getElementById("timer"); // Add an element with ID "timer" in your HTML for timer display
+
+    totalQuestionsSpan.textContent = questions.length;
+
+    function loadQuestion() {
+        timeLeft = 30; // Reset the timer for each question
+        timerSpan.textContent = timeLeft; // Show the timer on the screen
+        clearInterval(timer); // Clear any previous timer
+        timer = setInterval(updateTimer, 1000); // Start the countdown
+
+        const currentQuestion = questions[currentQuestionIndex];
+        questionText.textContent = currentQuestion.question;
+        optionsContainer.innerHTML = "";
+
+        currentQuestion.options.forEach(option => {
+            const button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("option");
+            button.addEventListener("click", () => selectAnswer(button, currentQuestion.answer));
+            optionsContainer.appendChild(button);
+        });
+
+        currentQuestionSpan.textContent = currentQuestionIndex + 1;
+        nextBtn.style.display = "none";
+    }
+
+    function updateTimer() {
+        timeLeft--;
+        timerSpan.textContent = timeLeft; // Update timer display
+        if (timeLeft <= 0) {
+            clearInterval(timer); // Stop the timer
+            nextQuestion(); // Move to next question when time is up
+        }
+    }
+
+    function selectAnswer(button, correctAnswer) {
+        const options = document.querySelectorAll(".option");
+
+        options.forEach(option => {
+            option.disabled = true;
+            option.classList.remove("correct", "wrong");
+        });
+
+        if (button.textContent === correctAnswer) {
+            button.classList.add("correct");
+            score++;
+        } else {
+            button.classList.add("wrong");
+        }
+
+        clearInterval(timer); // Stop the timer once an answer is selected
+        nextBtn.style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showFinalScore();
+        }
+    }
+
+    function showFinalScore() {
+        quizBox.innerHTML = `
+        <h2>Quiz Completed!</h2>
+        <p>Your score: <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
+        <button class="next-btn" onclick="restartQuiz()">Try Again</button>
+    `;
+    }
+
+    function restartQuiz() {
+        // Reset quiz state
+        currentQuestionIndex = 0;
+        score = 0;
+
+        // Clear quiz box content and prepare for the first question
+        quizBox.innerHTML = `
+        <p class="question-text">Loading question...</p>
+        <div class="options-container"></div>
+        <button class="next-btn" onclick="nextQuestion()">Next</button>
+        <p class="progress">Question <span id="current-question">1</span> of <span id="total-questions">${questions.length}</span></p>
+        <p>Time Left: <span id="timer">30</span> seconds</p>
+    `;
+
+        // Re-select elements to handle click events properly after innerHTML changes
+        document.querySelector(".next-btn").style.display = "none";
+        document.getElementById("current-question").textContent = 1;
+        loadQuestion(); // Load the first question after resetting the quiz state
+    }
+
+
+    loadQuestion();
+</script>
+
+
+</html>
