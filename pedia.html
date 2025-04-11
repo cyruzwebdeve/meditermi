@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>PEDIA TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>PEDIA TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Definition:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Apnea",
+            abbreviation: "APN",
+            definition: "Temporary cessation of breathing, especially during sleep."
+        }, {
+            title: "Aspiration",
+            abbreviation: "ASP",
+            definition: "Inhalation of a foreign substance (e.g., food, fluid) into the lungs."
+        }, {
+            title: "Bradycardia",
+            abbreviation: "BRAD",
+            definition: "Abnormally slow heart rate."
+        }, {
+            title: "Cyanosis",
+            abbreviation: "CYAN",
+            definition: "Bluish discoloration of the skin and mucous membranes due to inadequate oxygenation."
+        }, {
+            title: "Dehydration",
+            abbreviation: "DEHY",
+            definition: "Excessive loss of body fluids."
+        }, {
+            title: "Febrile Seizure",
+            abbreviation: "FS",
+            definition: "A seizure associated with a high fever in infants or young children."
+        }, {
+            title: "Growth and Development",
+            abbreviation: "G&D",
+            definition: "The process of physical, cognitive, and social changes in a child."
+        }, {
+            title: "Immunization",
+            abbreviation: "IMM",
+            definition: "Administration of a vaccine to stimulate an immune response and provide protection against a disease."
+        }, {
+            title: "Infusion",
+            abbreviation: "INF",
+            definition: "Administration of fluids, medications, or nutrients directly into a vein."
+        }, {
+            title: "Neonatal Intensive Care Unit",
+            abbreviation: "NICU",
+            definition: "A specialized unit for the care of critically ill newborns."
+        }, {
+            title: "Pediatric Intensive Care Unit",
+            abbreviation: "PICU",
+            definition: "A specialized unit for the care of critically ill children."
+        }, {
+            title: "Respiratory Distress",
+            abbreviation: "RD",
+            definition: "Difficulty breathing, often indicated by increased respiratory rate, retractions, and nasal flaring."
+        }, {
+            title: "Tachycardia",
+            abbreviation: "TACH",
+            definition: "Abnormally rapid heart rate."
+        }, {
+            title: "Vaccine",
+            abbreviation: "VAC",
+            definition: "A biological preparation that provides active acquired immunity to a particular infectious disease."
+        }, {
+            title: "Vital Signs",
+            abbreviation: "VS",
+            definition: "Measurements of body functions, including temperature, pulse, respiration, and blood pressure."
+        }];
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

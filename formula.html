@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>PEDIA TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>PEDIA TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Formula:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Calculation: Child Dose by Age",
+            abbreviation: null,
+            definition: "Child's dose = (Child's age in years / (Child's age + 12)) × Average adult dose"
+        }, {
+            title: "Calculation: Child Dose by Weight",
+            abbreviation: null,
+            definition: "Child's dose = (Weight of child in pounds / 150 lbs) × Average adult dose"
+        }, {
+            title: "Calculation: Flow Rate (drops/min)",
+            abbreviation: null,
+            definition: "Flow Rate = (Total volume × Drop factor) / Time in minutes"
+        }, {
+            title: "Calculation: IV Flow Rate (gtt/min)",
+            abbreviation: null,
+            definition: "GTT/MIN = (Volume in mL / Time in minutes) × Drop factor (gtt/mL)"
+        }, {
+            title: "Calculation: mL per Hour",
+            abbreviation: null,
+            definition: "mL/hr = Volume (mL) / Time (hours)"
+        }, {
+            title: "Calculation: Oral Medications (Tablet/Liquid)",
+            abbreviation: null,
+            definition: "Amount to give = (Desired Dose / Available Dose) × Quantity (e.g., 1 tablet or 5 mL)"
+        }, {
+            title: "Calculation: Volume to Infuse Per Hour",
+            abbreviation: null,
+            definition: "mL/hr = Volume (mL) / Hours"
+        }, {
+            title: "Child Estimated Blood Volume",
+            abbreviation: null,
+            definition: "Estimated blood volume = Body weight × Average blood volume for age group"
+        }, {
+            title: "Ratio and Proportion Method",
+            abbreviation: null,
+            definition: "(Dosage you have / Volume you have) = (Dose ordered / X); Solve for X"
+        }];
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>DR TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>DR TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Definition:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Abortion",
+            pronunciation: "uh-BOR-shun",
+            definition: "Termination (end) of a pregnancy.",
+        }, {
+            title: "Amniotic fluid",
+            pronunciation: "am-nee-OT-ik FLOO-id",
+            definition: "The liquid that surrounds a baby in the uterus (also called waters).",
+        }, {
+            title: "Amniotic sac",
+            pronunciation: "am-nee-OT-ik SAK",
+            definition: "The sac around the baby inside the uterus.",
+        }, {
+            title: "Amniotomy",
+            pronunciation: "am-nee-OT-uh-mee",
+            definition: "Artificial rupture of membranes (AROM) to induce labor.",
+        }, {
+            title: "Antenatal",
+            pronunciation: "an-tee-NAY-tl",
+            definition: "A term that means ‘before birth’ (alternative terms are ‘prenatal’ and ‘antepartum’).",
+        }, {
+            title: "Antepartum haemorrhage",
+            pronunciation: "an-tee-PAR-tum HEM-uh-rij",
+            definition: "Bleeding from the vagina during pregnancy.",
+        }, {
+            title: "Apgar score",
+            pronunciation: "AP-gar skor",
+            definition: "A test given one minute after a baby is born, then again 5 minutes later, that assesses a baby’s appearance, pulse, reflex, muscle tone, and respiration.",
+        }, {
+            title: "Caesarean section",
+            pronunciation: "SEE-zair-ee-un",
+            definition: "A surgical procedure in which a baby is delivered through a cut in the abdomen and uterus (also called a ‘C-section’).",
+        }, {
+            title: "Cephalopelvic Disproportion (CPD)",
+            pronunciation: "sef-uh-loh-PEL-vik dis-pro-POR-shun",
+            definition: "A condition where the baby’s head is too large to pass through the mother’s pelvis.",
+        }, {
+            title: "Cervical Dilation",
+            pronunciation: "SER-vi-kul die-LAY-shun or die-LAY-tion",
+            definition: "Opening of the cervix during labor, measured in centimeters.",
+        }, {
+            title: "Cervical Effacement",
+            pronunciation: "SER-vi-kul ee-FAYS-ment",
+            definition: "Thinning of the cervix in preparation for delivery.",
+        }, {
+            title: "Crowning",
+            pronunciation: "KROW-ning",
+            definition: "Time during labour when the baby’s head has reached the external vaginal opening and can be seen from the outside.",
+        }, {
+            title: "Deceleration",
+            pronunciation: "dee-sel-er-AY-shun",
+            definition: "A temporary drop in the fetal heart rate during contractions.",
+        }, {
+            title: "Dilation",
+            pronunciation: "die-LAY-shun or die-LAY-tion",
+            definition: "The opening of the cervix, measured as the diameter of the cervix in centimeters.",
+        }, {
+            title: "Embryo",
+            pronunciation: "EM-bree-oh",
+            definition: "The name given to a fertilised egg from the time of conception until the eighth week.",
+        }, {
+            title: "Episiotomy",
+            pronunciation: "eh-pee-zee-OT-uh-mee",
+            definition: "A surgical cut made in the perineum to enlarge the vaginal opening.",
+        }, {
+            title: "Gestational Age",
+            pronunciation: "jes-TAY-shun-al AYJ",
+            definition: "The age of the fetus, calculated from the last menstrual period (LMP).",
+        }, {
+            title: "Hydramnios (Polyhydramnios)",
+            pronunciation: "high-DRAM-nee-os (pol-ee-HIGH-dram-nee-os)",
+            definition: "Excess amniotic fluid.",
+        }, {
+            title: "In vitro fertilisation (IVF)",
+            pronunciation: "in VEE-troh fur-til-ih-ZAY-shun",
+            definition: "The process used to conceive a child outside the body, where a woman's eggs are fertilised with a man’s sperm then placed in the woman's uterus.",
+        }, {
+            title: "Labor",
+            pronunciation: "LAY-bor",
+            definition: "The process a woman’s body goes through when her baby is born.",
+        }, {
+            title: "Neonatal Resuscitation",
+            pronunciation: "nee-oh-NAY-tl ree-suh-sih-TAY-shun",
+            definition: "Emergency procedures to help a newborn breathe.",
+        }, {
+            title: "Neonate",
+            pronunciation: "NEE-oh-nayt",
+            definition: "A newborn baby, up to 4 weeks of age.",
+        }, {
+            title: "Perineal Tear",
+            pronunciation: "pair-ih-NEE-uhl tair",
+            definition: "A spontaneous tear in the perineum during delivery.",
+        }, {
+            title: "Placenta",
+            pronunciation: "pluh-SEN-tuh",
+            definition: "The organ that connects to the wall of the uterus, that nourishes the baby through the umbilical cord.",
+        }, {
+            title: "Postpartum haemorrhage",
+            pronunciation: "post-PAR-tum HEM-uh-rij",
+            definition: "When a woman loses more than 500 ml of blood after birth.",
+        }, {
+            title: "Rupture of Membranes (ROM)",
+            pronunciation: "RUP-chur of MEM-brayns",
+            definition: "The breaking of the amniotic sac, commonly referred to as the 'water breaking.'",
+        }, {
+            title: "Shoulder Dystocia",
+            pronunciation: "SHOHL-der dis-TOH-shuh",
+            definition: "A delivery complication where the baby’s shoulders get stuck after the head has emerged.",
+        }, {
+            title: "Spontaneous labour",
+            pronunciation: "spon-TAY-nee-us LAY-bor",
+            definition: "When labour starts by itself (without medical help).",
+        }, {
+            title: "Umbilical cord",
+            pronunciation: "um-BIL-ih-kul kord or um-BILL-ih-kul kord",
+            definition: "The cord that connects the baby to the placenta, allowing nutrients and oxygen to be carried from the woman to her baby.",
+        }, {
+            title: "Umbilical Cord Prolapse",
+            pronunciation: "um-BIL-ih-kul kord PRO-laps",
+            definition: "A medical emergency where the umbilical cord slips through the cervix before the baby, cutting off oxygen supply.",
+        }, ];
+
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

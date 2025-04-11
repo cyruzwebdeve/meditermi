@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>ER TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>ER TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Definition:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Appendicitis",
+            pronunciation: "uh-PEN-di-SY-tis",
+            definition: "Inflammation of the appendix, causing severe abdominal pain (usually in the lower right side), nausea, vomiting, and fever."
+        }, {
+            title: "Arterial Blood Gas",
+            pronunciation: "ar-TEER-ee-uhl bluhd gas",
+            definition: "A test measuring oxygen, carbon dioxide, and pH levels in arterial blood."
+        }, {
+            title: "Basic Life Support",
+            pronunciation: "BAY-sik life suh-PORT",
+            definition: "Emergency medical care, including CPR."
+        }, {
+            title: "Blunt Trauma",
+            pronunciation: "BLUNT TRAW-muh",
+            definition: "Injury caused by a non-penetrating force, such as a fall, motor vehicle accident, or direct blow, leading to internal injuries or fractures."
+        }, {
+            title: "Chief Complaint",
+            pronunciation: "cheef kum-PLAYNT",
+            definition: "The primary reason for a patient's ER visit."
+        }, {
+            title: "Dislocation",
+            pronunciation: "dis-lo-KAY-shun",
+            definition: "A condition where a bone is forced out of its normal joint position, often causing pain, swelling, and loss of movement."
+        }, {
+            title: "Do Not Resuscitate",
+            pronunciation: "doo not ree-SUS-i-tate",
+            definition: "A medical order preventing CPR."
+        }, {
+            title: "Electrocardiogram",
+            pronunciation: "ee-LEK-tro-KAR-dee-oh-gram",
+            definition: "A test recording the heart's electrical activity."
+        }, {
+            title: "Endotracheal Tube",
+            pronunciation: "en-do-TRAY-kee-uhl-toob",
+            definition: "A tube inserted into the airway for ventilation."
+        }, {
+            title: "Focused Assessment with Sonography for Trauma",
+            pronunciation: "FOH-kusd uh-SESS-muhnt with soh-NAH-gruh-fee for TRAW-muh",
+            definition: "A rapid ultrasound exam to detect internal bleeding."
+        }, {
+            title: "Glasgow Coma Scale",
+            pronunciation: "GLAS-go KOH-muh skayl",
+            definition: "A scale assessing a patient’s consciousness."
+        }, {
+            title: "Hyperglycemia",
+            pronunciation: "HY-per-gly-SEE-mee-ah",
+            definition: "High blood sugar levels, often seen in diabetes and requiring medical intervention."
+        }, {
+            title: "Hypokalemia",
+            pronunciation: "hy-po-kuh-LEE-mee-uh",
+            definition: "A condition where there is low potassium in the blood, leading to muscle weakness, irregular heartbeat, and fatigue."
+        }, {
+            title: "Hypoxia",
+            pronunciation: "hy-POX-ee-uh",
+            definition: "A condition where there is low oxygen in the tissues, leading to difficulty breathing, confusion, and potential organ failure."
+        }, {
+            title: "Intubation",
+            pronunciation: "IN-too-BAY-shun",
+            definition: "A medical procedure where a tube is inserted into the airway to assist breathing, often used in critically ill or unconscious patients."
+        }, {
+            title: "Intravenous",
+            pronunciation: "in-truh-VEE-nuhs or in-truh-VAY-nuhs",
+            definition: "The administration of fluids or medication directly into a vein."
+        }, {
+            title: "Loss of Consciousness",
+            pronunciation: "laws of KON-shuhs-ness",
+            definition: "A temporary or permanent state of unconsciousness."
+        }, {
+            title: "Myocardial Infarction",
+            pronunciation: "my-oh-KAR-dee-uhl in-FARK-shun",
+            definition: "A heart attack caused by blocked blood flow to the heart muscle."
+        }, {
+            title: "Necrotic",
+            pronunciation: "neh-KROT-ik",
+            definition: "Refers to dead tissue due to lack of blood supply, infection, or severe injury, which can lead to serious complications if not treated."
+        }, {
+            title: "NPO (nothing per Orem)",
+            pronunciation: "NPO (nothing per Orem)",
+            definition: "A medical order instructing that a patient should not consume food or drink."
+        }, {
+            title: "Pancreatitis",
+            pronunciation: "pan-kree-uh-TY-tis",
+            definition: "Inflammation of the pancreas, which can cause severe abdominal pain, nausea, vomiting, and digestive problems."
+        }, {
+            title: "Penetrating Trauma",
+            pronunciation: "PEN-uh-tray-ting TRAW-muh",
+            definition: "An injury where an object pierces the skin and enters the body, such as stab wounds or gunshot wounds, potentially damaging internal organs."
+        }, {
+            title: "Pneumonia",
+            pronunciation: "new-MOH-nyuh",
+            definition: "An infection that inflames the air sacs in the lungs, causing cough, fever, difficulty breathing, and chest pain."
+        }, {
+            title: "Pneumothorax",
+            pronunciation: "new-mo-THOR-ax",
+            definition: "A collapsed lung due to air leaking into the space between the lung and chest wall, causing sudden chest pain and difficulty breathing."
+        }, {
+            title: "Respiratory Rate",
+            pronunciation: "RES-puh-ruh-tor-ee rayt or RES-pi-ruh-tor-ee rayt",
+            definition: "The number of breaths a patient takes per minute."
+        }, {
+            title: "Seizure",
+            pronunciation: "SEE-zher",
+            definition: "A sudden, uncontrolled electrical disturbance in the brain that can cause convulsions, loss of consciousness, or abnormal behavior."
+        }, {
+            title: "Statim",
+            pronunciation: "STAT-um",
+            definition: "An urgent medical order indicating immediate action is needed."
+        }, {
+            title: "Stridor",
+            pronunciation: "STRY-dor",
+            definition: "A high-pitched, wheezing sound due to a blocked or narrowed airway, often heard in conditions like croup, anaphylaxis, or foreign body obstruction."
+        }, {
+            title: "Syncope",
+            pronunciation: "SIN-ko-pee",
+            definition: "A temporary loss of consciousness (fainting) due to a drop in blood flow to the brain."
+        }, {
+            title: "Triage",
+            pronunciation: "TREE-ahj",
+            definition: "The process of prioritizing patients based on the severity of their condition to ensure timely treatment."
+        }, {
+            title: "Vital Signs",
+            pronunciation: "VY-tuhl sahynz",
+            definition: "Key physiological measurements including heart rate, blood pressure, respiratory rate, and temperature."
+        }];
+
+
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
