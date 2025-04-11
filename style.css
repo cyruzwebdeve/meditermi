@@ -4,7 +4,7 @@ body {
     padding: 0;
     text-align: center;
     background-image: url(particles.png);
-    background-size: contain;
+    background-size: cover;
     color: black;
     display: flex;
     flex-direction: column;
