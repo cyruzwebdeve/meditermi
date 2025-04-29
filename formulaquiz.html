@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="quiz.css">
+    <title>Medical Formulas Quiz</title>
+</head>
+
+<body>
+
+    <button class="back-btn" onclick="history.back()">&larr; Back</button>
+    <h1>Medical Formulas Quiz</h1>
+    <div id="quiz"></div>
+
+    <script>
+        const formulas = [{
+            title: "IV Flow Rate (gtt/min)",
+            definition: "(Total Volume × Drop Factor) / Time (minutes)"
+        }, {
+            title: "Pediatric Dose by Weight",
+            definition: "(Child's weight in lbs / 150 lbs) × Adult Dose"
+        }, {
+            title: "Pediatric Dose by Age",
+            definition: "(Child's Age in Years / (Age + 12)) × Adult Dose"
+        }, {
+            title: "ML/HR Formula",
+            definition: "Volume (ml) / Time (hours)"
+        }, {
+            title: "IV Flow Rate (GTT/MIN)",
+            definition: "(Volume (ml) × Drop Factor) / Time (min)"
+        }, {
+            title: "Ratio and Proportion Method",
+            definition: "(Dosage you have / Volume you have) × Dose Ordered"
+        }, {
+            title: "Oral Medication (Tablets/Liquids)",
+            definition: "(Desired / Available) × Quantity"
+        }, {
+            title: "Calculation of Volume Per Hour",
+            definition: "Volume (ml) / Hours = ml/hr"
+        }, {
+            title: "Child's Estimated Blood Volume",
+            definition: "Body Weight × Average Blood Volume for Age Group"
+        }];
+
+        const container = document.getElementById('quiz');
+
+        formulas.forEach(formula => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+
+            const question = document.createElement('div');
+            question.className = 'question';
+            question.textContent = `What is the formula for: ${formula.title}?`;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Type the formula here';
+
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback';
+
+            const checkBtn = document.createElement('button');
+            checkBtn.textContent = 'Check Answer';
+            checkBtn.onclick = () => {
+                const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, '');
+                const correctAnswer = formula.definition.toLowerCase().replace(/\s+/g, '');
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = 'Correct!';
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = `Incorrect. The correct formula is: ${formula.definition}`;
+                    feedback.className = 'feedback incorrect';
+                }
+            };
+
+            card.appendChild(question);
+            card.appendChild(input);
+            card.appendChild(checkBtn);
+            card.appendChild(feedback);
+            container.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

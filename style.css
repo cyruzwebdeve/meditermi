@@ -1,0 +1,473 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-image: url(particles.png);
+    background-size: contain;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+
+/* HEADER */
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #007572;
+    position: relative;
+}
+
+#menu-btn {
+    position: absolute;
+    left: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: white;
+}
+
+
+/* SEARCH SECTION */
+
+#search-section {
+    padding: 2rem;
+    background-color: #007572;
+}
+
+#search-section h1 {
+    color: white;
+    font-size: 2rem;
+    margin: 0;
+}
+
+input {
+    padding: 10px;
+    width: 60%;
+    border: none;
+}
+
+#search-btn {
+    background: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#suggestions {
+    display: flex;
+    justify-content: center;
+    margin-left: 62px;
+    position: absolute;
+    margin-top: -1px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 51%;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #e8f5e9;
+}
+
+#results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.result-item {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #e8f5e9;
+    border-left: 5px solid #4CAF50;
+    border-radius: 5px;
+}
+
+.result-item h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.result-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+
+/* WORD OF THE DAY */
+
+#word-of-the-day {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+#word-of-the-day hr {
+    border: 0;
+    /* Removes the default border */
+    height: 3px;
+    width: 190px;
+    /* Sets the thickness of the line */
+    background-color: #007572;
+    /* Sets the color of the line */
+    margin-top: 10px;
+    /* Adjusts the space above the line */
+    margin-bottom: 10px;
+    /* Adjusts the space below the line */
+}
+
+#word-of-the-day h1 {
+    color: #005f4a;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#word-of-the-day h3 {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: 5px;
+    /* Reduces space above the word */
+    margin-bottom: 5px;
+    /* Reduces space below the word */
+}
+
+#word-of-the-day p {
+    width: 400px;
+    margin-top: 5px;
+    /* Reduces space above the paragraph */
+}
+
+
+/* FOLDER SECTION */
+
+#folders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Correct 3 columns */
+    grid-template-rows: repeat(2, auto);
+    /* 2 rows */
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.folder {
+    width: 100px;
+    /* Adjust folder size */
+    height: 80px;
+    background-image: url(folder.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.folder-title {
+    position: absolute;
+    top: 1rem;
+    /* Position the title */
+    left: 1rem;
+    /* Adjust the left position */
+    font-size: 14px;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Make the title bold */
+    color: #fff;
+    /* Title color */
+}
+
+
+/* QUIZ BUTTON */
+
+#quiz-btn {
+    background-color: #007572;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    /* Adjust the width */
+    display: block;
+    /* Makes the button a block element */
+    margin: 0 auto;
+    /* Centers the button */
+}
+
+#quiz-btn:hover {
+    background-color: #005f4a;
+    /* Darkens the background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adds a shadow */
+    font-weight: bold;
+}
+
+#quiz-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #007572;
+    color: white;
+    margin-top: auto;
+}
+
+@media screen and (min-width: 768px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #search-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem;
+        gap: 10px;
+    }
+    input {
+        width: 300px;
+    }
+    /* 3-column layout for sections */
+    .info-section {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        padding: 20px;
+    }
+    .info-section div {
+        flex: 1;
+        max-width: 30%;
+    }
+    /* Make folders scrollable horizontally */
+    #folders {
+        display: flex;
+        gap: 50px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 20px;
+        scrollbar-width: thin;
+        /* For Firefox */
+        scrollbar-color: #007572 #f1f1f1;
+    }
+    #folders::-webkit-scrollbar {
+        height: 8px;
+        cursor: pointer;
+    }
+    #folders::-webkit-scrollbar-thumb {
+        background: #007572;
+        border-radius: 10px;
+    }
+    #folders::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .folder {
+        left: 120px;
+        flex: 0 0 auto;
+        width: 250px;
+        height: 240px;
+        background-size: contain;
+        cursor: pointer;
+    }
+    .folder-title {
+        font-size: 16px;
+        top: 0.4rem;
+        left: 1.2rem;
+    }
+    footer {
+        position: relative;
+        bottom: 0;
+    }
+    .folder:hover {
+        transform: scale(1.1);
+    }
+    #quiz-btn {
+        background-color: #007572;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 250px;
+        height: 60px;
+        /* Adjust the width */
+        display: block;
+        /* Makes the button a block element */
+        margin: 0 auto;
+        /* Centers the button */
+        font-size: 20px;
+    }
+    #quiz-btn:hover {
+        background-color: #005f4a;
+        /* Darkens the background on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Adds a shadow */
+        font-weight: bold;
+    }
+    #quiz-btn a {
+        text-decoration: none;
+        color: white;
+    }
+    #suggestions {
+        margin-top: 257px;
+        width: 16%;
+        margin-left: 200px;
+    }
+}
+
+
+/* Sidebar styles */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #005f4a;
+    color: white;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+}
+
+
+/* Open class to slide in sidebar */
+
+.sidebar.open {
+    left: 0;
+    background-color: #007572;
+}
+
+
+/* Optional: Menu button styling */
+
+#menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin: 10px;
+}
+
+
+/* Sidebar styles */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    /* Hidden by default */
+    width: 250px;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #444;
+}
+
+
+/* Open class to slide in sidebar */
+
+.sidebar.open {
+    left: 0;
+    background-color: #007572;
+}
+
+
+/* Optional: Menu button styling */
+
+#menu-btn {
+    font-size: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    margin: 10px;
+}
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

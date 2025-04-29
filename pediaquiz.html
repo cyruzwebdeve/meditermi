@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="quiz.css">
+    <title>Pediatric Terms Quiz</title>
+</head>
+
+<body>
+
+
+    <button class="back-btn" onclick="history.back()">&larr; Back</button>
+    <h1>Pedia Terminology Quiz</h1>
+    <div id="quiz"></div>
+
+    <script>
+        const pediatricTerms = [{
+            title: "Apnea",
+            abbreviation: "APN",
+            definition: "Temporary cessation of breathing, especially during sleep."
+        }, {
+            title: "Aspiration",
+            abbreviation: "ASP",
+            definition: "Inhalation of a foreign substance (e.g., food, fluid) into the lungs."
+        }, {
+            title: "Bradycardia",
+            abbreviation: "BRAD",
+            definition: "Abnormally slow heart rate."
+        }, {
+            title: "Cyanosis",
+            abbreviation: "CYAN",
+            definition: "Bluish discoloration of the skin and mucous membranes due to inadequate oxygenation."
+        }, {
+            title: "Dehydration",
+            abbreviation: "DEHY",
+            definition: "Excessive loss of body fluids."
+        }, {
+            title: "Febrile Seizure",
+            abbreviation: "FS",
+            definition: "A seizure associated with a high fever in infants or young children."
+        }, {
+            title: "Growth and Development",
+            abbreviation: "G&D",
+            definition: "The process of physical, cognitive, and social changes in a child."
+        }, {
+            title: "Immunization",
+            abbreviation: "IMM",
+            definition: "Administration of a vaccine to stimulate an immune response and provide protection against a disease."
+        }, {
+            title: "Infusion",
+            abbreviation: "INF",
+            definition: "Administration of fluids, medications, or nutrients directly into a vein."
+        }, {
+            title: "Neonatal Intensive Care Unit",
+            abbreviation: "NICU",
+            definition: "A specialized unit for the care of critically ill newborns."
+        }, {
+            title: "Pediatric Intensive Care Unit",
+            abbreviation: "PICU",
+            definition: "A specialized unit for the care of critically ill children."
+        }, {
+            title: "Respiratory Distress",
+            abbreviation: "RD",
+            definition: "Difficulty breathing, often indicated by increased respiratory rate, retractions, and nasal flaring."
+        }, {
+            title: "Tachycardia",
+            abbreviation: "TACH",
+            definition: "Abnormally rapid heart rate."
+        }, {
+            title: "Vaccine",
+            abbreviation: "VAC",
+            definition: "A biological preparation that provides active acquired immunity to a particular infectious disease."
+        }, {
+            title: "Vital Signs",
+            abbreviation: "VS",
+            definition: "Measurements of body functions, including temperature, pulse, respiration, and blood pressure."
+        }];
+
+        const container = document.getElementById('quiz');
+
+        pediatricTerms.forEach(term => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+
+            const question = document.createElement('div');
+            question.className = 'question';
+            question.textContent = `What is the definition of: ${term.title}?`;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Type your answer here';
+
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback';
+
+            const checkBtn = document.createElement('button');
+            checkBtn.textContent = 'Check Answer';
+            checkBtn.onclick = () => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = term.definition.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = 'Correct!';
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = `Incorrect. The correct answer is: ${term.definition}`;
+                    feedback.className = 'feedback incorrect';
+                }
+            };
+
+            card.appendChild(question);
+            card.appendChild(input);
+            card.appendChild(checkBtn);
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

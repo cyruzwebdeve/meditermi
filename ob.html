@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon" />
+    <link rel="stylesheet" href="flexi.css" />
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>OB TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>OB TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Definition:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Amniotomy",
+            pronunciation: "am-nee-OT-oh-mee",
+            definition: "Artificial rupture of membranes to induce or accelerate labor.",
+        }, {
+            title: "Braxton Hicks Contractions",
+            pronunciation: "BRAKS-tuhn hiks kun-TRAK-shuns",
+            definition: "Irregular, painless uterine contractions that occur throughout pregnancy.",
+        }, {
+            title: "Cephalopelvic Disproportion (CPD)",
+            pronunciation: "sef-uh-loh-PEL-vik dis-proh-POR-shun",
+            definition: "A condition where the baby’s head is too large to fit through the mother’s pelvis.",
+        }, {
+            title: "Colostrum",
+            pronunciation: "kuh-LOS-truhm",
+            definition: "The first form of breast milk, rich in antibodies and nutrients.",
+        }, {
+            title: "Crowning",
+            pronunciation: "KROW-ning",
+            definition: "The stage of labor when the baby’s head starts to emerge from the birth canal.",
+        }, {
+            title: "Dilation",
+            pronunciation: "dye-LAY-shun",
+            definition: "The widening of the cervix in preparation for childbirth.",
+        }, {
+            title: "Eclampsia",
+            pronunciation: "ih-KLAMP-see-uh",
+            definition: "A severe complication of pregnancy characterized by seizures following preeclampsia.",
+        }, {
+            title: "Episiotomy",
+            pronunciation: "ih-pee-zee-OT-uh-mee",
+            definition: "A surgical incision made in the perineum to enlarge the vaginal opening for childbirth.",
+        }, {
+            title: "Fundal Height",
+            pronunciation: "FUHN-dl hite",
+            definition: "The measurement from the pubic bone to the top of the uterus, used to assess fetal growth.",
+        }, {
+            title: "Gestational Diabetes",
+            pronunciation: "jes-TAY-shuh-nl dye-uh-BEE-teez",
+            definition: "A form of diabetes that develops during pregnancy and usually resolves after delivery.",
+        }, {
+            title: "Involution",
+            pronunciation: "in-vuh-LOO-shun",
+            definition: "The process of the uterus returning to its pre-pregnancy size after childbirth.",
+        }, {
+            title: "Kangaroo Care",
+            pronunciation: "KAN-guh-roo kair",
+            definition: "Skin-to-skin contact between a newborn and a parent to promote bonding and regulate body temperature.",
+        }, {
+            title: "Lanugo",
+            pronunciation: "luh-NOO-go",
+            definition: "Fine, soft hair covering the fetus, usually shed before or shortly after birth.",
+        }, {
+            title: "Linea Nigra",
+            pronunciation: "LIN-ee-uh NEE-gruh",
+            definition: "A dark vertical line that appears on the abdomen during pregnancy.",
+        }, {
+            title: "Quickening",
+            pronunciation: "KWIK-uh-ning",
+            definition: "The first movements of the fetus felt by the mother, usually around 16–20 weeks of pregnancy.",
+        }, ];
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

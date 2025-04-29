@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="flexi.css">
+    <script src="https://kit.fontawesome.com/ef95fa948b.js" crossorigin="anonymous"></script>
+    <title>OR TERMINOLOGIES</title>
+</head>
+
+<body>
+    <header>
+        <a href="index.html"><img src="back arrow.png" alt="back button" /></a>
+        <h1>OR TERMINOLOGIES</h1>
+        <div id="letterFilter" style="text-align: center; margin: 20px auto; flex-wrap: wrap;">
+            <!-- Filter buttons will be added via JS -->
+        </div>
+
+    </header>
+
+    <section class="contents" id="termList">
+        <!-- Cards will be populated by JS -->
+    </section>
+
+    <section class="definition" id="definitionSection" style="display: none; padding: 20px;">
+        <a href="#" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+        <h1 id="termTitle"></h1>
+        <h2>Pronunciation:</h2>
+        <p id="termPronunciation"></p>
+        <p id="termPronunciation"></p>
+        <hr>
+        <h2>Definition:</h2>
+        <p id="termDefinition"></p>
+    </section>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script>
+        let currentTermIndex = null;
+        const terms = [{
+            title: "Anesthesia",
+            abbreviation: "ANES",
+            definition: "Loss of sensation, with or without loss of consciousness, induced by medication."
+        }, {
+            title: "Asepsis",
+            abbreviation: "ASEP",
+            definition: "The absence of pathogenic microorganisms that cause infection."
+        }, {
+            title: "Circulating Nurse",
+            abbreviation: "CN",
+            definition: "A registered nurse who manages the OR environment and ensures patient safety."
+        }, {
+            title: "Electrocautery",
+            abbreviation: "EC",
+            definition: "Use of an electrically heated instrument to destroy tissue or achieve hemostasis."
+        }, {
+            title: "General Anesthesia",
+            abbreviation: "GA",
+            definition: "A state of unconsciousness produced by anesthetic agents, with loss of protective reflexes."
+        }, {
+            title: "Hemostasis",
+            abbreviation: "HEMO",
+            definition: "The arrest of bleeding by either natural or artificial means."
+        }, {
+            title: "Incision",
+            abbreviation: "INC",
+            definition: "A cut made into tissue or skin during a surgical procedure."
+        }, {
+            title: "Laparoscopy",
+            abbreviation: "LAP",
+            definition: "A minimally invasive surgical procedure using a laparoscope (a thin, lighted instrument)."
+        }, {
+            title: "Operating Room",
+            abbreviation: "OR",
+            definition: "A specialized room in a hospital where surgical operations are performed."
+        }, {
+            title: "Post-Anesthesia Care Unit",
+            abbreviation: "PACU",
+            definition: "A recovery area where patients are monitored after anesthesia."
+        }, {
+            title: "Scrub Nurse",
+            abbreviation: "SN",
+            definition: "A nurse who assists the surgeon directly within the sterile field."
+        }, {
+            title: "Specimen",
+            abbreviation: "SPEC",
+            definition: "A tissue or fluid sample taken for laboratory examination."
+        }, {
+            title: "Sterile Field",
+            abbreviation: "SF",
+            definition: "An area free of microorganisms, maintained during a surgical procedure."
+        }, {
+            title: "Suture",
+            abbreviation: "SUT",
+            definition: "A stitch or series of stitches made to close a wound or surgical incision."
+        }, {
+            title: "Vital Signs",
+            abbreviation: "VS",
+            definition: "Measurements of body functions, including temperature, pulse, respiration, and blood pressure."
+        }];
+
+        const termList = document.getElementById("termList");
+        const defSection = document.getElementById("definitionSection");
+
+        terms.forEach((term, index) => {
+            const card = document.createElement("div");
+            card.className = "cardview";
+            card.innerHTML = `<h1 class="termi">${term.title}</h1>`;
+            card.onclick = () => showDefinition(index);
+            termList.appendChild(card);
+        });
+
+        function showDefinition(index) {
+            currentTermIndex = index; // Track which term is active
+
+            document.getElementById("termTitle").innerText = terms[index].title;
+            document.getElementById("termPronunciation").innerText = terms[index].pronunciation;
+            document.getElementById("termDefinition").innerText = terms[index].definition;
+
+            termList.style.display = "none";
+            defSection.style.display = "block";
+        }
+
+
+        function goBack() {
+            termList.style.display = "grid";
+            defSection.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

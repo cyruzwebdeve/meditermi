@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="quiz.css">
+    <title>Clinical Documentation Quiz</title>
+</head>
+
+<body>
+
+    <button class="back-btn" onclick="history.back()">&larr; Back</button>
+    <h1>OPD Terminology Quiz</h1>
+    <div id="quiz"></div>
+
+    <script>
+        const terms = [{
+            title: "Allergy",
+            pronunciation: null,
+            definition: "An adverse reaction to a substance, such as a medication or food."
+        }, {
+            title: "Assessment",
+            pronunciation: null,
+            definition: "A healthcare provider's evaluation of the patient's condition, including diagnosis, prognosis, and treatment plan."
+        }, {
+            title: "Biopsy",
+            pronunciation: null,
+            definition: "A surgical procedure to remove tissue or cells for examination."
+        }, {
+            title: "Chief Complaint",
+            pronunciation: "CC",
+            definition: "The patient's main reason for seeking medical attention."
+        }, {
+            title: "Consultation",
+            pronunciation: null,
+            definition: "A meeting between the patient and a healthcare provider to discuss diagnosis, treatment, and follow-up care."
+        }, {
+            title: "Diagnosis",
+            pronunciation: null,
+            definition: "A determination of the patient's medical condition or disease."
+        }, {
+            title: "Differential Diagnosis",
+            pronunciation: "DDx",
+            definition: "A list of potential diagnoses based on the patient's symptoms and medical history."
+        }, {
+            title: "Discharge Instructions",
+            pronunciation: null,
+            definition: "Written instructions provided to the patient at discharge, outlining follow-up care, medications, and lifestyle modifications."
+        }, {
+            title: "Family History",
+            pronunciation: null,
+            definition: "A record of the patient's family members' medical conditions and diseases."
+        }, {
+            title: "Follow-up",
+            pronunciation: null,
+            definition: "A scheduled appointment for the patient to return for further evaluation or treatment."
+        }, {
+            title: "History of Present Illness",
+            pronunciation: "HPI",
+            definition: "A detailed account of the patient's symptoms and medical history."
+        }, {
+            title: "Imaging Studies",
+            pronunciation: null,
+            definition: "Diagnostic tests that use X-rays, CT scans, MRI, or ultrasound to visualize internal body structures."
+        }, {
+            title: "Informed Consent",
+            pronunciation: null,
+            definition: "A patient's agreement to undergo a medical procedure or treatment after being fully informed of the risks and benefits."
+        }, {
+            title: "Lab Results",
+            pronunciation: null,
+            definition: "The results of laboratory tests, such as blood work or imaging studies."
+        }, {
+            title: "Medical History",
+            pronunciation: null,
+            definition: "A record of the patient's past medical conditions, surgeries, and hospitalizations."
+        }, {
+            title: "Medication",
+            pronunciation: null,
+            definition: "Prescription or over-the-counter drugs used to treat medical conditions."
+        }, {
+            title: "Past Medical History",
+            pronunciation: "PMH",
+            definition: "A record of the patient's previous medical conditions, surgeries, and hospitalizations."
+        }, {
+            title: "Physical Examination",
+            pronunciation: null,
+            definition: "A systematic evaluation of the patient's body systems and physical condition."
+        }, {
+            title: "Plan",
+            pronunciation: null,
+            definition: "A detailed plan outlining the patient's treatment, including medications, therapies, and follow-up care."
+        }, {
+            title: "Procedure",
+            pronunciation: null,
+            definition: "A medical intervention, such as a biopsy, surgery, or injection."
+        }, {
+            title: "Prognosis",
+            pronunciation: null,
+            definition: "A prediction of the patient's likely outcome or course of the disease."
+        }, {
+            title: "Referral",
+            pronunciation: null,
+            definition: "A request for the patient to see a specialist or receive further evaluation."
+        }, {
+            title: "Review of Systems",
+            pronunciation: "ROS",
+            definition: "A systematic review of the patient's body systems to identify potential health issues."
+        }, {
+            title: "Sign",
+            pronunciation: null,
+            definition: "An objective indication of a medical condition, such as a rash or swelling."
+        }, {
+            title: "Social History",
+            pronunciation: null,
+            definition: "A record of the patient's lifestyle, habits, and social relationships."
+        }, {
+            title: "Symptom",
+            pronunciation: null,
+            definition: "A subjective experience or sensation reported by the patient."
+        }, {
+            title: "Therapy",
+            pronunciation: null,
+            definition: "Non-pharmacological interventions, such as physical therapy, occupational therapy, or counseling."
+        }, {
+            title: "Triage",
+            pronunciation: null,
+            definition: "The process of prioritizing patients based on the severity of their condition."
+        }, {
+            title: "Treatment Plan",
+            pronunciation: null,
+            definition: "A detailed plan outlining the patient's treatment, including medications, therapies, and follow-up care."
+        }, {
+            title: "Vital Signs",
+            pronunciation: null,
+            definition: "Measurements of the patient's temperature, pulse, blood pressure, respiratory rate, and oxygen saturation."
+        }];
+
+        const container = document.getElementById('quiz');
+
+        terms.forEach(term => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+
+            const question = document.createElement('div');
+            question.className = 'question';
+            question.textContent = `What is the definition of: ${term.title}?`;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Type your answer here';
+
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback';
+
+            const checkBtn = document.createElement('button');
+            checkBtn.textContent = 'Check Answer';
+            checkBtn.onclick = () => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = term.definition.toLowerCase();
+
+                if (userAnswer === correctAnswer) {
+                    feedback.textContent = 'Correct!';
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = `Incorrect. The correct answer is: ${term.definition}`;
+                    feedback.className = 'feedback incorrect';
+                }
+            };
+
+            card.appendChild(question);
+            card.appendChild(input);
+            card.appendChild(checkBtn);
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

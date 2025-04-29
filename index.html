@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="mediterm.jpg" type="image/x-icon">
+    <title>MEDI TERMI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <button id="menu-btn">&#9776;</button>
+    </header>
+    <nav id="sidebar" class="sidebar">
+        <button id="close-btn">&times;</button>
+        <ul>
+            <li><a href="saved.html">SAVED WORDS</a></li>
+        </ul>
+    </nav>
+
+
+    <section id="search-section" class="search-section">
+        <h1>MEDI TERMI</h1>
+        <input type="text" id="search-input" placeholder="Search for a term..." oninput="showSuggestions()" autocomplete="off">
+        <div id="suggestions"></div>
+    </section>
+
+
+    <section id="word-of-the-day">
+        <h1>WORD OF THE DAY</h1>
+        <hr>
+        <h3 id="word">Loading...</h3>
+        <p id="word-definition">Please wait...</p>
+    </section>
+
+
+    <section id="folders">
+        <a href="ob.html">
+            <div class="folder">
+                <p class="folder-title">OB</p>
+            </div>
+        </a>
+        <a href="or.html">
+            <div class="folder">
+                <p class="folder-title">OR</p>
+            </div>
+        </a>
+        <a href="dr.html">
+            <div class="folder">
+                <p class="folder-title">DR</p>
+            </div>
+        </a>
+        <a href="er.html">
+            <div class="folder">
+                <p class="folder-title">ER</p>
+            </div>
+        </a>
+        <a href="pedia.html">
+            <div class="folder">
+                <p class="folder-title">PEDIA</p>
+            </div>
+        </a>
+        <a href="opd.html">
+            <div class="folder">
+                <p class="folder-title">OPD</p>
+            </div>
+            <a href="formula.html">
+                <div class="folder">
+                    <p class="folder-title">FOM</p>
+                </div>
+            </a>
+
+    </section>
+
+
+    <button id="quiz-btn" src="quiz.html"><a href="quiz.html">Quiz Game</a></button>
+
+    <footer>
+        <p>Copyright © 2025 MEDI TERMI</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        /*COLLECTION OF TERMS USING ARRAY*/
+        const dictionary = [{
+            title: "Appendicitis",
+            pronunciation: "uh-PEN-di-SY-tis",
+            definition: "Inflammation of the appendix, causing severe abdominal pain (usually in the lower right side), nausea, vomiting, and fever."
+        }, {
+            title: "Arterial Blood Gas",
+            pronunciation: "ar-TEER-ee-uhl bluhd gas",
+            definition: "A test measuring oxygen, carbon dioxide, and pH levels in arterial blood."
+        }, {
+            title: "Basic Life Support",
+            pronunciation: "BAY-sik life suh-PORT",
+            definition: "Emergency medical care, including CPR."
+        }, {
+            title: "Blunt Trauma",
+            pronunciation: "BLUNT TRAW-muh",
+            definition: "Injury caused by a non-penetrating force, such as a fall, motor vehicle accident, or direct blow, leading to internal injuries or fractures."
+        }, {
+            title: "Chief Complaint",
+            pronunciation: "cheef kum-PLAYNT",
+            definition: "The primary reason for a patient's ER visit."
+        }, {
+            title: "Dislocation",
+            pronunciation: "dis-lo-KAY-shun",
+            definition: "A condition where a bone is forced out of its normal joint position, often causing pain, swelling, and loss of movement."
+        }, {
+            title: "Do Not Resuscitate",
+            pronunciation: "doo not ree-SUS-i-tate",
+            definition: "A medical order preventing CPR."
+        }, {
+            title: "Electrocardiogram",
+            pronunciation: "ee-LEK-tro-KAR-dee-oh-gram",
+            definition: "A test recording the heart's electrical activity."
+        }, {
+            title: "Endotracheal Tube",
+            pronunciation: "en-do-TRAY-kee-uhl-toob",
+            definition: "A tube inserted into the airway for ventilation."
+        }, {
+            title: "Focused Assessment with Sonography for Trauma",
+            pronunciation: "FOH-kusd uh-SESS-muhnt with soh-NAH-gruh-fee for TRAW-muh",
+            definition: "A rapid ultrasound exam to detect internal bleeding."
+        }, {
+            title: "Glasgow Coma Scale",
+            pronunciation: "GLAS-go KOH-muh skayl",
+            definition: "A scale assessing a patient’s consciousness."
+        }, {
+            title: "Hyperglycemia",
+            pronunciation: "HY-per-gly-SEE-mee-ah",
+            definition: "High blood sugar levels, often seen in diabetes and requiring medical intervention."
+        }, {
+            title: "Hypokalemia",
+            pronunciation: "hy-po-kuh-LEE-mee-uh",
+            definition: "A condition where there is low potassium in the blood, leading to muscle weakness, irregular heartbeat, and fatigue."
+        }, {
+            title: "Hypoxia",
+            pronunciation: "hy-POX-ee-uh",
+            definition: "A condition where there is low oxygen in the tissues, leading to difficulty breathing, confusion, and potential organ failure."
+        }, {
+            title: "Intubation",
+            pronunciation: "IN-too-BAY-shun",
+            definition: "A medical procedure where a tube is inserted into the airway to assist breathing, often used in critically ill or unconscious patients."
+        }, {
+            title: "Intravenous",
+            pronunciation: "in-truh-VEE-nuhs or in-truh-VAY-nuhs",
+            definition: "The administration of fluids or medication directly into a vein."
+        }, {
+            title: "Loss of Consciousness",
+            pronunciation: "laws of KON-shuhs-ness",
+            definition: "A temporary or permanent state of unconsciousness."
+        }, {
+            title: "Myocardial Infarction",
+            pronunciation: "my-oh-KAR-dee-uhl in-FARK-shun",
+            definition: "A heart attack caused by blocked blood flow to the heart muscle."
+        }, {
+            title: "Necrotic",
+            pronunciation: "neh-KROT-ik",
+            definition: "Refers to dead tissue due to lack of blood supply, infection, or severe injury, which can lead to serious complications if not treated."
+        }, {
+            title: "NPO (nothing per Orem)",
+            pronunciation: "NPO (nothing per Orem)",
+            definition: "A medical order instructing that a patient should not consume food or drink."
+        }, {
+            title: "Pancreatitis",
+            pronunciation: "pan-kree-uh-TY-tis",
+            definition: "Inflammation of the pancreas, which can cause severe abdominal pain, nausea, vomiting, and digestive problems."
+        }, {
+            title: "Penetrating Trauma",
+            pronunciation: "PEN-uh-tray-ting TRAW-muh",
+            definition: "An injury where an object pierces the skin and enters the body, such as stab wounds or gunshot wounds, potentially damaging internal organs."
+        }, {
+            title: "Pneumonia",
+            pronunciation: "new-MOH-nyuh",
+            definition: "An infection that inflames the air sacs in the lungs, causing cough, fever, difficulty breathing, and chest pain."
+        }, {
+            title: "Pneumothorax",
+            pronunciation: "new-mo-THOR-ax",
+            definition: "A collapsed lung due to air leaking into the space between the lung and chest wall, causing sudden chest pain and difficulty breathing."
+        }, {
+            title: "Respiratory Rate",
+            pronunciation: "RES-puh-ruh-tor-ee rayt or RES-pi-ruh-tor-ee rayt",
+            definition: "The number of breaths a patient takes per minute."
+        }, {
+            title: "Seizure",
+            pronunciation: "SEE-zher",
+            definition: "A sudden, uncontrolled electrical disturbance in the brain that can cause convulsions, loss of consciousness, or abnormal behavior."
+        }, {
+            title: "Statim",
+            pronunciation: "STAT-um",
+            definition: "An urgent medical order indicating immediate action is needed."
+        }, {
+            title: "Stridor",
+            pronunciation: "STRY-dor",
+            definition: "A high-pitched, wheezing sound due to a blocked or narrowed airway, often heard in conditions like croup, anaphylaxis, or foreign body obstruction."
+        }, {
+            title: "Syncope",
+            pronunciation: "SIN-ko-pee",
+            definition: "A temporary loss of consciousness (fainting) due to a drop in blood flow to the brain."
+        }, {
+            title: "Triage",
+            pronunciation: "TREE-ahj",
+            definition: "The process of prioritizing patients based on the severity of their condition to ensure timely treatment."
+        }, {
+            title: "Vital Signs",
+            pronunciation: "VY-tuhl sahynz",
+            definition: "Key physiological measurements including heart rate, blood pressure, respiratory rate, and temperature."
+        }, {
+            title: "Abortion",
+            pronunciation: "uh-BOR-shun",
+            definition: "Termination (end) of a pregnancy.",
+        }, {
+            title: "Amniotic fluid",
+            pronunciation: "am-nee-OT-ik FLOO-id",
+            definition: "The liquid that surrounds a baby in the uterus (also called waters).",
+        }, {
+            title: "Amniotic sac",
+            pronunciation: "am-nee-OT-ik SAK",
+            definition: "The sac around the baby inside the uterus.",
+        }, {
+            title: "Antenatal",
+            pronunciation: "an-tee-NAY-tl",
+            definition: "A term that means ‘before birth’ (alternative terms are ‘prenatal’ and ‘antepartum’).",
+        }, {
+            title: "Antepartum haemorrhage",
+            pronunciation: "an-tee-PAR-tum HEM-uh-rij",
+            definition: "Bleeding from the vagina during pregnancy.",
+        }, {
+            title: "Apgar score",
+            pronunciation: "AP-gar skor",
+            definition: "A test given one minute after a baby is born, then again 5 minutes later, that assesses a baby’s appearance, pulse, reflex, muscle tone, and respiration.",
+        }, {
+            title: "Caesarean section",
+            pronunciation: "SEE-zair-ee-un",
+            definition: "A surgical procedure in which a baby is delivered through a cut in the abdomen and uterus (also called a ‘C-section’).",
+        }, {
+            title: "Cervical Dilation",
+            pronunciation: "SER-vi-kul die-LAY-shun or die-LAY-tion",
+            definition: "Opening of the cervix during labor, measured in centimeters.",
+        }, {
+            title: "Cervical Effacement",
+            pronunciation: "SER-vi-kul ee-FAYS-ment",
+            definition: "Thinning of the cervix in preparation for delivery.",
+        }, {
+            title: "Deceleration",
+            pronunciation: "dee-sel-er-AY-shun",
+            definition: "A temporary drop in the fetal heart rate during contractions.",
+        }, {
+            title: "Embryo",
+            pronunciation: "EM-bree-oh",
+            definition: "The name given to a fertilised egg from the time of conception until the eighth week.",
+        }, {
+            title: "Episiotomy",
+            pronunciation: "eh-pee-zee-OT-uh-mee",
+            definition: "A surgical cut made in the perineum to enlarge the vaginal opening.",
+        }, {
+            title: "Gestational Age",
+            pronunciation: "jes-TAY-shun-al AYJ",
+            definition: "The age of the fetus, calculated from the last menstrual period (LMP).",
+        }, {
+            title: "Hydramnios (Polyhydramnios)",
+            pronunciation: "high-DRAM-nee-os (pol-ee-HIGH-dram-nee-os)",
+            definition: "Excess amniotic fluid.",
+        }, {
+            title: "In vitro fertilisation (IVF)",
+            pronunciation: "in VEE-troh fur-til-ih-ZAY-shun",
+            definition: "The process used to conceive a child outside the body, where a woman's eggs are fertilised with a man’s sperm then placed in the woman's uterus.",
+        }, {
+            title: "Labor",
+            pronunciation: "LAY-bor",
+            definition: "The process a woman’s body goes through when her baby is born.",
+        }, {
+            title: "Neonatal Resuscitation",
+            pronunciation: "nee-oh-NAY-tl ree-suh-sih-TAY-shun",
+            definition: "Emergency procedures to help a newborn breathe.",
+        }, {
+            title: "Neonate",
+            pronunciation: "NEE-oh-nayt",
+            definition: "A newborn baby, up to 4 weeks of age.",
+        }, {
+            title: "Perineal Tear",
+            pronunciation: "pair-ih-NEE-uhl tair",
+            definition: "A spontaneous tear in the perineum during delivery.",
+        }, {
+            title: "Placenta",
+            pronunciation: "pluh-SEN-tuh",
+            definition: "The organ that connects to the wall of the uterus, that nourishes the baby through the umbilical cord.",
+        }, {
+            title: "Postpartum haemorrhage",
+            pronunciation: "post-PAR-tum HEM-uh-rij",
+            definition: "When a woman loses more than 500 ml of blood after birth.",
+        }, {
+            title: "Rupture of Membranes (ROM)",
+            pronunciation: "RUP-chur of MEM-brayns",
+            definition: "The breaking of the amniotic sac, commonly referred to as the 'water breaking.'",
+        }, {
+            title: "Shoulder Dystocia",
+            pronunciation: "SHOHL-der dis-TOH-shuh",
+            definition: "A delivery complication where the baby’s shoulders get stuck after the head has emerged.",
+        }, {
+            title: "Spontaneous labour",
+            pronunciation: "spon-TAY-nee-us LAY-bor",
+            definition: "When labour starts by itself (without medical help).",
+        }, {
+            title: "Umbilical cord",
+            pronunciation: "um-BIL-ih-kul kord or um-BILL-ih-kul kord",
+            definition: "The cord that connects the baby to the placenta, allowing nutrients and oxygen to be carried from the woman to her baby.",
+        }, {
+            title: "Umbilical Cord Prolapse",
+            pronunciation: "um-BIL-ih-kul kord PRO-laps",
+            definition: "A medical emergency where the umbilical cord slips through the cervix before the baby, cutting off oxygen supply.",
+        }, {
+            title: "Amniotomy",
+            pronunciation: "am-nee-OT-oh-mee",
+            definition: "Artificial rupture of membranes to induce or accelerate labor.",
+        }, {
+            title: "Braxton Hicks Contractions",
+            pronunciation: "BRAKS-tuhn hiks kun-TRAK-shuns",
+            definition: "Irregular, painless uterine contractions that occur throughout pregnancy.",
+        }, {
+            title: "Cephalopelvic Disproportion (CPD)",
+            pronunciation: "sef-uh-loh-PEL-vik dis-proh-POR-shun",
+            definition: "A condition where the baby’s head is too large to fit through the mother’s pelvis.",
+        }, {
+            title: "Colostrum",
+            pronunciation: "kuh-LOS-truhm",
+            definition: "The first form of breast milk, rich in antibodies and nutrients.",
+        }, {
+            title: "Crowning",
+            pronunciation: "KROW-ning",
+            definition: "The stage of labor when the baby’s head starts to emerge from the birth canal.",
+        }, {
+            title: "Dilation",
+            pronunciation: "dye-LAY-shun",
+            definition: "The widening of the cervix in preparation for childbirth.",
+        }, {
+            title: "Eclampsia",
+            pronunciation: "ih-KLAMP-see-uh",
+            definition: "A severe complication of pregnancy characterized by seizures following preeclampsia.",
+        }, {
+            title: "Episiotomy",
+            pronunciation: "ih-pee-zee-OT-uh-mee",
+            definition: "A surgical incision made in the perineum to enlarge the vaginal opening for childbirth.",
+        }, {
+            title: "Fundal Height",
+            pronunciation: "FUHN-dl hite",
+            definition: "The measurement from the pubic bone to the top of the uterus, used to assess fetal growth.",
+        }, {
+            title: "Gestational Diabetes",
+            pronunciation: "jes-TAY-shuh-nl dye-uh-BEE-teez",
+            definition: "A form of diabetes that develops during pregnancy and usually resolves after delivery.",
+        }, {
+            title: "Involution",
+            pronunciation: "in-vuh-LOO-shun",
+            definition: "The process of the uterus returning to its pre-pregnancy size after childbirth.",
+        }, {
+            title: "Kangaroo Care",
+            pronunciation: "KAN-guh-roo kair",
+            definition: "Skin-to-skin contact between a newborn and a parent to promote bonding and regulate body temperature.",
+        }, {
+            title: "Lanugo",
+            pronunciation: "luh-NOO-go",
+            definition: "Fine, soft hair covering the fetus, usually shed before or shortly after birth.",
+        }, {
+            title: "Linea Nigra",
+            pronunciation: "LIN-ee-uh NEE-gruh",
+            definition: "A dark vertical line that appears on the abdomen during pregnancy.",
+        }, {
+            title: "Quickening",
+            pronunciation: "KWIK-uh-ning",
+            definition: "The first movements of the fetus felt by the mother, usually around 16–20 weeks of pregnancy.",
+        }, {
+            title: "Allergy",
+            pronunciation: null,
+            definition: "An adverse reaction to a substance, such as a medication or food."
+        }, {
+            title: "Assessment",
+            pronunciation: null,
+            definition: "A healthcare provider's evaluation of the patient's condition, including diagnosis, prognosis, and treatment plan."
+        }, {
+            title: "Biopsy",
+            pronunciation: null,
+            definition: "A surgical procedure to remove tissue or cells for examination."
+        }, {
+            title: "Consultation",
+            pronunciation: null,
+            definition: "A meeting between the patient and a healthcare provider to discuss diagnosis, treatment, and follow-up care."
+        }, {
+            title: "Diagnosis",
+            pronunciation: null,
+            definition: "A determination of the patient's medical condition or disease."
+        }, {
+            title: "Differential Diagnosis",
+            pronunciation: "DDx",
+            definition: "A list of potential diagnoses based on the patient's symptoms and medical history."
+        }, {
+            title: "Discharge Instructions",
+            pronunciation: null,
+            definition: "Written instructions provided to the patient at discharge, outlining follow-up care, medications, and lifestyle modifications."
+        }, {
+            title: "Family History",
+            pronunciation: null,
+            definition: "A record of the patient's family members' medical conditions and diseases."
+        }, {
+            title: "Follow-up",
+            pronunciation: null,
+            definition: "A scheduled appointment for the patient to return for further evaluation or treatment."
+        }, {
+            title: "History of Present Illness",
+            pronunciation: "HPI",
+            definition: "A detailed account of the patient's symptoms and medical history."
+        }, {
+            title: "Imaging Studies",
+            pronunciation: null,
+            definition: "Diagnostic tests that use X-rays, CT scans, MRI, or ultrasound to visualize internal body structures."
+        }, {
+            title: "Informed Consent",
+            pronunciation: null,
+            definition: "A patient's agreement to undergo a medical procedure or treatment after being fully informed of the risks and benefits."
+        }, {
+            title: "Lab Results",
+            pronunciation: null,
+            definition: "The results of laboratory tests, such as blood work or imaging studies."
+        }, {
+            title: "Medical History",
+            pronunciation: null,
+            definition: "A record of the patient's past medical conditions, surgeries, and hospitalizations."
+        }, {
+            title: "Medication",
+            pronunciation: null,
+            definition: "Prescription or over-the-counter drugs used to treat medical conditions."
+        }, {
+            title: "Past Medical History",
+            pronunciation: "PMH",
+            definition: "A record of the patient's previous medical conditions, surgeries, and hospitalizations."
+        }, {
+            title: "Physical Examination",
+            pronunciation: null,
+            definition: "A systematic evaluation of the patient's body systems and physical condition."
+        }, {
+            title: "Plan",
+            pronunciation: null,
+            definition: "A detailed plan outlining the patient's treatment, including medications, therapies, and follow-up care."
+        }, {
+            title: "Procedure",
+            pronunciation: null,
+            definition: "A medical intervention, such as a biopsy, surgery, or injection."
+        }, {
+            title: "Prognosis",
+            pronunciation: null,
+            definition: "A prediction of the patient's likely outcome or course of the disease."
+        }, {
+            title: "Referral",
+            pronunciation: null,
+            definition: "A request for the patient to see a specialist or receive further evaluation."
+        }, {
+            title: "Review of Systems",
+            pronunciation: "ROS",
+            definition: "A systematic review of the patient's body systems to identify potential health issues."
+        }, {
+            title: "Sign",
+            pronunciation: null,
+            definition: "An objective indication of a medical condition, such as a rash or swelling."
+        }, {
+            title: "Social History",
+            pronunciation: null,
+            definition: "A record of the patient's lifestyle, habits, and social relationships."
+        }, {
+            title: "Symptom",
+            pronunciation: null,
+            definition: "A subjective experience or sensation reported by the patient."
+        }, {
+            title: "Therapy",
+            pronunciation: null,
+            definition: "Non-pharmacological interventions, such as physical therapy, occupational therapy, or counseling."
+        }, {
+            title: "Treatment Plan",
+            pronunciation: null,
+            definition: "A detailed plan outlining the patient's treatment, including medications, therapies, and follow-up care."
+        }, {
+            title: "Apnea",
+            abbreviation: "APN",
+            definition: "Temporary cessation of breathing, especially during sleep."
+        }, {
+            title: "Aspiration",
+            abbreviation: "ASP",
+            definition: "Inhalation of a foreign substance (e.g., food, fluid) into the lungs."
+        }, {
+            title: "Bradycardia",
+            abbreviation: "BRAD",
+            definition: "Abnormally slow heart rate."
+        }, {
+            title: "Cyanosis",
+            abbreviation: "CYAN",
+            definition: "Bluish discoloration of the skin and mucous membranes due to inadequate oxygenation."
+        }, {
+            title: "Dehydration",
+            abbreviation: "DEHY",
+            definition: "Excessive loss of body fluids."
+        }, {
+            title: "Febrile Seizure",
+            abbreviation: "FS",
+            definition: "A seizure associated with a high fever in infants or young children."
+        }, {
+            title: "Growth and Development",
+            abbreviation: "G&D",
+            definition: "The process of physical, cognitive, and social changes in a child."
+        }, {
+            title: "Immunization",
+            abbreviation: "IMM",
+            definition: "Administration of a vaccine to stimulate an immune response and provide protection against a disease."
+        }, {
+            title: "Infusion",
+            abbreviation: "INF",
+            definition: "Administration of fluids, medications, or nutrients directly into a vein."
+        }, {
+            title: "Neonatal Intensive Care Unit",
+            abbreviation: "NICU",
+            definition: "A specialized unit for the care of critically ill newborns."
+        }, {
+            title: "Pediatric Intensive Care Unit",
+            abbreviation: "PICU",
+            definition: "A specialized unit for the care of critically ill children."
+        }, {
+            title: "Respiratory Distress",
+            abbreviation: "RD",
+            definition: "Difficulty breathing, often indicated by increased respiratory rate, retractions, and nasal flaring."
+        }, {
+            title: "Tachycardia",
+            abbreviation: "TACH",
+            definition: "Abnormally rapid heart rate."
+        }, {
+            title: "Vaccine",
+            abbreviation: "VAC",
+            definition: "A biological preparation that provides active acquired immunity to a particular infectious disease."
+        }, {
+            title: "Anesthesia",
+            abbreviation: "ANES",
+            definition: "Loss of sensation, with or without loss of consciousness, induced by medication."
+        }, {
+            title: "Asepsis",
+            abbreviation: "ASEP",
+            definition: "The absence of pathogenic microorganisms that cause infection."
+        }, {
+            title: "Circulating Nurse",
+            abbreviation: "CN",
+            definition: "A registered nurse who manages the OR environment and ensures patient safety."
+        }, {
+            title: "Electrocautery",
+            abbreviation: "EC",
+            definition: "Use of an electrically heated instrument to destroy tissue or achieve hemostasis."
+        }, {
+            title: "General Anesthesia",
+            abbreviation: "GA",
+            definition: "A state of unconsciousness produced by anesthetic agents, with loss of protective reflexes."
+        }, {
+            title: "Hemostasis",
+            abbreviation: "HEMO",
+            definition: "The arrest of bleeding by either natural or artificial means."
+        }, {
+            title: "Incision",
+            abbreviation: "INC",
+            definition: "A cut made into tissue or skin during a surgical procedure."
+        }, {
+            title: "Laparoscopy",
+            abbreviation: "LAP",
+            definition: "A minimally invasive surgical procedure using a laparoscope (a thin, lighted instrument)."
+        }, {
+            title: "Operating Room",
+            abbreviation: "OR",
+            definition: "A specialized room in a hospital where surgical operations are performed."
+        }, {
+            title: "Post-Anesthesia Care Unit",
+            abbreviation: "PACU",
+            definition: "A recovery area where patients are monitored after anesthesia."
+        }, {
+            title: "Scrub Nurse",
+            abbreviation: "SN",
+            definition: "A nurse who assists the surgeon directly within the sterile field."
+        }, {
+            title: "Specimen",
+            abbreviation: "SPEC",
+            definition: "A tissue or fluid sample taken for laboratory examination."
+        }, {
+            title: "Sterile Field",
+            abbreviation: "SF",
+            definition: "An area free of microorganisms, maintained during a surgical procedure."
+        }, {
+            title: "Suture",
+            abbreviation: "SUT",
+            definition: "A stitch or series of stitches made to close a wound or surgical incision."
+        }, {
+            title: "Vital Signs",
+            abbreviation: "VS",
+            definition: "Measurements of body functions, including temperature, pulse, respiration, and blood pressure."
+        }]; // Function to show the suggestions based on the user's input
+        function showSuggestions() {
+            const query = document.getElementById("search-input").value.toLowerCase(); // Get the user's input and convert to lowercase
+            const suggestionsContainer = document.getElementById("suggestions"); // Get the container where suggestions will be shown
+            suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+
+            // If input is empty, hide the suggestions
+            if (query.length === 0) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+            // Filter the dictionary based on the user's input (starting characters match)
+            const filteredWords = dictionary.filter(item => item.title.toLowerCase().startsWith(query));
+
+            // If matches are found, display them in the suggestions container
+            if (filteredWords.length > 0) {
+                suggestionsContainer.style.display = 'block';
+                filteredWords.forEach(item => {
+                    const suggestionItem = document.createElement("div"); // Create a new suggestion item
+                    suggestionItem.classList.add("suggestion-item"); // Add styling class
+                    suggestionItem.textContent = item.title; // Set the text content
+                    suggestionItem.onclick = () => selectSuggestion(item.title); // Set click handler
+                    suggestionsContainer.appendChild(suggestionItem); // Add to the suggestions container
+                });
+            } else {
+                suggestionsContainer.style.display = 'none'; // Hide suggestions if no matches
+            }
+        }
+
+        // Function to redirect to the detail page with the selected word
+        function selectSuggestion(word) {
+            document.getElementById("search-input").value = word; // Set the input to the selected word
+            window.location.href = `details.html?word=${encodeURIComponent(word)}`; // Redirect to the details page with query parameter
+            document.getElementById("suggestions").style.display = "none"; // Hide the suggestions container
+        }
+
+        // Sidebar toggle functionality
+        const menuBtn = document.getElementById('menu-btn'); // Button to open sidebar
+        const sidebar = document.getElementById('sidebar'); // Sidebar element
+        const closeBtn = document.getElementById('close-btn'); // Button to close sidebar
+
+        // When the menu button is clicked, toggle the 'open' class to show/hide sidebar
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // When the close button is clicked, remove the 'open' class to hide sidebar
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+    </script>
+</body>
+
+</html>
